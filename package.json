@@ -1,0 +1,57 @@
+{
+  "name": "n8n-nodes-crmsolid",
+  "version": "0.1.0",
+  "description": "n8n community node for CRM Solid. Create and update contacts, move deals and read conversations from a workflow.",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "crm",
+    "crmsolid",
+    "contacts",
+    "deals",
+    "sales"
+  ],
+  "license": "MIT",
+  "homepage": "https://crmsolid.com",
+  "author": {
+    "name": "CRM Solid",
+    "email": "support@crmsolid.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CRM-Solid/n8n-nodes-crmsolid.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CRM-Solid/n8n-nodes-crmsolid/issues"
+  },
+  "engines": {
+    "node": ">=20.15"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf dist && tsc && node scripts/copy-icons.mjs",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/CrmSolidApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/CrmSolid/CrmSolid.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "n8n-workflow": "*",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.6.0"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}
