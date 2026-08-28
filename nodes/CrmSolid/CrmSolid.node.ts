@@ -38,32 +38,52 @@ async function crmSolidRequest(
 }
 
 /**
- * Walks the cursor pagination the API uses: a list response carries `data` plus
- * a `nextCursor`, and the cursor goes back out as `after`.
+ * Walks the cursor pagination the API uses.
+ *
+ * Every v1 list endpoint answers with the same envelope, `{ items, nextCursor,
+ * hasMore }` (see V1ControllerBase.Page). `items` is the field that carries the
+ * rows: reading `data` instead silently produced an empty result on every Get
+ * Many, because the key simply does not exist. `data` is still accepted as a
+ * fallback so a future envelope change does not break this in the other
+ * direction.
+ *
+ * `cursorParam` exists because the cursor is not always called `after`.
+ * Contacts and deals page forward on an id with `?after=`; conversations page
+ * back through activity time with `?before=`. Sending the wrong name means the
+ * server ignores it, returns page one again, and Return All never terminates.
  */
 async function paginate(
 	this: IExecuteFunctions,
 	itemIndex: number,
 	path: string,
 	filters: IDataObject,
+	cursorParam: 'after' | 'before' = 'after',
 ): Promise<IDataObject[]> {
 	const returnAll = this.getNodeParameter('returnAll', itemIndex) as boolean;
 	const limit = returnAll ? 100 : (this.getNodeParameter('limit', itemIndex) as number);
 
 	const collected: IDataObject[] = [];
-	let after: number | undefined;
+	let cursor: string | number | undefined;
 
 	for (;;) {
 		const remaining = returnAll ? 100 : limit - collected.length;
 		const qs: IDataObject = { ...filters, limit: Math.min(Math.max(remaining, 1), 100) };
-		if (after !== undefined) qs.after = after;
+		if (cursor !== undefined) qs[cursorParam] = cursor;
 
 		const page = await crmSolidRequest.call(this, 'GET', path, {}, qs);
-		const rows: IDataObject[] = (page?.data as IDataObject[]) ?? (Array.isArray(page) ? page : []);
+		const rows: IDataObject[] =
+			(page?.items as IDataObject[]) ??
+			(page?.data as IDataObject[]) ??
+			(Array.isArray(page) ? page : []);
 		collected.push(...rows);
 
-		after = page?.nextCursor as number | undefined;
-		if (!after || rows.length === 0) break;
+		const next = page?.nextCursor as string | number | null | undefined;
+		cursor = next === null ? undefined : next;
+
+		// `hasMore` is authoritative when present; fall back to the cursor for an
+		// endpoint that returns a naturally complete set and no flag.
+		const hasMore = typeof page?.hasMore === 'boolean' ? page.hasMore : cursor !== undefined;
+		if (!hasMore || cursor === undefined || rows.length === 0) break;
 		if (!returnAll && collected.length >= limit) break;
 	}
 
@@ -379,7 +399,8 @@ export class CrmSolid implements INodeType {
 						);
 					}
 				} else if (resource === 'conversation') {
-					responseData = await paginate.call(this, i, '/v1/conversations', {});
+					// Conversations key their cursor on last-activity time, not on an id.
+					responseData = await paginate.call(this, i, '/v1/conversations', {}, 'before');
 				}
 
 				const executionData = this.helpers.constructExecutionMetaData(
