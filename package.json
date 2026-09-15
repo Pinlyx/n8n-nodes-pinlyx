@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-crmsolid",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "n8n community node for Pinlyx. Create and update contacts, move deals and read conversations from a workflow.",
   "keywords": [
     "n8n-community-node-package",
