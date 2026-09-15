@@ -1,6 +1,6 @@
 # n8n-nodes-crmsolid
 
-An [n8n](https://n8n.io) community node for [CRM Solid](https://crmsolid.com). It puts your
+An [n8n](https://n8n.io) community node for [Pinlyx](https://pinlyx.com). It puts your
 contacts, deals and conversations in a workflow, so a form submission becomes a contact, a
 won deal triggers an invoice, and an inbox message reaches whatever you have wired up next.
 
@@ -56,9 +56,9 @@ page, or leave it off and set a limit.
 
 ## Credentials
 
-You need a CRM Solid account and an API key.
+You need a Pinlyx account and an API key.
 
-1. In CRM Solid, open **Settings → Developers**.
+1. In Pinlyx, open **Settings → Developers**.
 2. Create a key. It starts with `csk_live_` or `csk_test_`.
 3. Grant it the scopes this workflow needs, for example `contacts:read` and
    `contacts:write`.
@@ -75,8 +75,8 @@ dependencies: every request goes through n8n's own HTTP helper.
 
 ## Resources
 
-- [CRM Solid](https://crmsolid.com)
-- [API documentation](https://docs.crmsolid.com)
+- [Pinlyx](https://pinlyx.com)
+- [API documentation](https://docs.pinlyx.com)
 - [`@crmsolid/mcp-server`](https://github.com/CRM-Solid/crmsolid-mcp): the MCP server,
   for the same CRM from Claude, Cursor or ChatGPT rather than from a workflow
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
