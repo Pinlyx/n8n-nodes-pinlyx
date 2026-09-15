@@ -20,10 +20,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CRM-Solid/n8n-nodes-pinlyx.git"
+    "url": "git+https://github.com/Pinlyx/n8n-nodes-pinlyx.git"
   },
   "bugs": {
-    "url": "https://github.com/CRM-Solid/n8n-nodes-pinlyx/issues"
+    "url": "https://github.com/Pinlyx/n8n-nodes-pinlyx/issues"
   },
   "engines": {
     "node": ">=20.15"

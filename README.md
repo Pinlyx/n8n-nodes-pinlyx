@@ -77,7 +77,7 @@ dependencies: every request goes through n8n's own HTTP helper.
 
 - [Pinlyx](https://pinlyx.com)
 - [API documentation](https://docs.pinlyx.com)
-- [`@crmsolid/mcp-server`](https://github.com/CRM-Solid/pinlyx-mcp): the MCP server,
+- [`@crmsolid/mcp-server`](https://github.com/Pinlyx/pinlyx-mcp): the MCP server,
   for the same CRM from Claude, Cursor or ChatGPT rather than from a workflow
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
 
