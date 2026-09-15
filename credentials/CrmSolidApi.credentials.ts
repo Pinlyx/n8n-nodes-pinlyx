@@ -8,9 +8,9 @@ import type {
 export class CrmSolidApi implements ICredentialType {
 	name = 'crmSolidApi';
 
-	displayName = 'CRM Solid API';
+	displayName = 'Pinlyx API';
 
-	documentationUrl = 'https://docs.crmsolid.com';
+	documentationUrl = 'https://docs.pinlyx.com';
 
 	properties: INodeProperties[] = [
 		{
@@ -21,7 +21,7 @@ export class CrmSolidApi implements ICredentialType {
 			default: '',
 			required: true,
 			description:
-				'Create one in CRM Solid under Settings, Developers. Keys start with csk_live_ or csk_test_ and carry the scopes you granted them, so a key that cannot write contacts will fail those operations with 403.',
+				'Create one in Pinlyx under Settings, Developers. Keys start with csk_live_ or csk_test_ and carry the scopes you granted them, so a key that cannot write contacts will fail those operations with 403.',
 		},
 		{
 			displayName: 'Base URL',

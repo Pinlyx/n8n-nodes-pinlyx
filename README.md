@@ -62,7 +62,7 @@ You need a Pinlyx account and an API key.
 2. Create a key. It starts with `csk_live_` or `csk_test_`.
 3. Grant it the scopes this workflow needs, for example `contacts:read` and
    `contacts:write`.
-4. In n8n, add a **CRM Solid API** credential and paste the key.
+4. In n8n, add a **Pinlyx API** credential and paste the key.
 
 Scopes are enforced server side, so a key without `contacts:write` will fail create and
 update with a 403 rather than silently doing nothing. **Base URL** only needs changing for

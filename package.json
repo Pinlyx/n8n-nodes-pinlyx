@@ -1,28 +1,29 @@
 {
   "name": "n8n-nodes-crmsolid",
   "version": "0.1.1",
-  "description": "n8n community node for CRM Solid. Create and update contacts, move deals and read conversations from a workflow.",
+  "description": "n8n community node for Pinlyx. Create and update contacts, move deals and read conversations from a workflow.",
   "keywords": [
     "n8n-community-node-package",
     "n8n",
     "crm",
     "crmsolid",
+    "pinlyx",
     "contacts",
     "deals",
     "sales"
   ],
   "license": "MIT",
-  "homepage": "https://crmsolid.com",
+  "homepage": "https://pinlyx.com",
   "author": {
-    "name": "CRM Solid",
-    "email": "support@crmsolid.com"
+    "name": "Pinlyx",
+    "email": "support@pinlyx.com"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CRM-Solid/n8n-nodes-crmsolid.git"
+    "url": "git+https://github.com/CRM-Solid/n8n-nodes-pinlyx.git"
   },
   "bugs": {
-    "url": "https://github.com/CRM-Solid/n8n-nodes-crmsolid/issues"
+    "url": "https://github.com/CRM-Solid/n8n-nodes-pinlyx/issues"
   },
   "engines": {
     "node": ">=20.15"

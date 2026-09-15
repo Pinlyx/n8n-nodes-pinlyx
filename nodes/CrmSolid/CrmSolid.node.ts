@@ -10,7 +10,7 @@ import type {
 import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 
 /**
- * One call against the CRM Solid public API.
+ * One call against the Pinlyx public API.
  *
  * Everything goes through n8n's own request helper rather than a bundled HTTP
  * client, both because the credential injects the Authorization header there and
@@ -92,14 +92,14 @@ async function paginate(
 
 export class CrmSolid implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'CRM Solid',
+		displayName: 'Pinlyx',
 		name: 'crmSolid',
 		icon: 'file:crmsolid.svg',
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Work with contacts, deals and conversations in CRM Solid',
-		defaults: { name: 'CRM Solid' },
+		description: 'Work with contacts, deals and conversations in Pinlyx',
+		defaults: { name: 'Pinlyx' },
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],
 		credentials: [{ name: 'crmSolidApi', required: true }],
