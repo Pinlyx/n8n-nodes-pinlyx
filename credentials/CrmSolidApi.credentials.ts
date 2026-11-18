@@ -2,6 +2,7 @@ import type {
 	IAuthenticateGeneric,
 	ICredentialTestRequest,
 	ICredentialType,
+	Icon,
 	INodeProperties,
 } from 'n8n-workflow';
 
@@ -9,6 +10,11 @@ export class CrmSolidApi implements ICredentialType {
 	name = 'crmSolidApi';
 
 	displayName = 'Pinlyx API';
+
+	icon: Icon = {
+		light: 'file:../nodes/CrmSolid/crmsolid.svg',
+		dark: 'file:../nodes/CrmSolid/crmsolid.dark.svg',
+	};
 
 	documentationUrl = 'https://docs.pinlyx.com';
 

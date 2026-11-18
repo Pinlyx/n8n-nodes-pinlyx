@@ -5,9 +5,10 @@ import type {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	IRequestOptions,
+	IHttpRequestOptions,
+	JsonObject,
 } from 'n8n-workflow';
-import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
+import { NodeApiError, NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 
 /**
  * One call against the Pinlyx public API.
@@ -26,15 +27,15 @@ async function crmSolidRequest(
 	const credentials = await this.getCredentials('crmSolidApi');
 	const baseUrl = ((credentials.baseUrl as string) || 'https://api.crmsolid.com').replace(/\/+$/, '');
 
-	const options: IRequestOptions = {
+	const options: IHttpRequestOptions = {
 		method,
 		qs,
-		uri: `${baseUrl}${resource}`,
+		url: `${baseUrl}${resource}`,
 		json: true,
 	};
 	if (Object.keys(body).length) options.body = body;
 
-	return this.helpers.requestWithAuthentication.call(this, 'crmSolidApi', options);
+	return this.helpers.httpRequestWithAuthentication.call(this, 'crmSolidApi', options);
 }
 
 /**
@@ -94,7 +95,8 @@ export class CrmSolid implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Pinlyx',
 		name: 'crmSolid',
-		icon: 'file:crmsolid.svg',
+		icon: { light: 'file:crmsolid.svg', dark: 'file:crmsolid.dark.svg' },
+		usableAsTool: true,
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
@@ -413,7 +415,7 @@ export class CrmSolid implements INodeType {
 					returnData.push({ json: { error: (error as Error).message }, pairedItem: { item: i } });
 					continue;
 				}
-				throw error;
+				throw new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i });
 			}
 		}
 

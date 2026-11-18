@@ -2,5 +2,7 @@
 import { cp, mkdir } from 'node:fs/promises';
 
 await mkdir('dist/nodes/CrmSolid', { recursive: true });
-await cp('nodes/CrmSolid/crmsolid.svg', 'dist/nodes/CrmSolid/crmsolid.svg');
+for (const icon of ['crmsolid.svg', 'crmsolid.dark.svg']) {
+	await cp(`nodes/CrmSolid/${icon}`, `dist/nodes/CrmSolid/${icon}`);
+}
 console.log('icon copied');
