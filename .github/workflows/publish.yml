@@ -20,10 +20,11 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           registry-url: 'https://registry.npmjs.org'
 
-      - run: npm install --no-audit --no-fund
+      # Build is tsc only; skipping install scripts avoids compiling native dev dependencies (isolated-vm).
+      - run: npm install --no-audit --no-fund --ignore-scripts
 
       - name: Check the tag matches package.json
         run: |
