@@ -6,14 +6,14 @@ import type {
 	INodeProperties,
 } from 'n8n-workflow';
 
-export class CrmSolidApi implements ICredentialType {
-	name = 'crmSolidApi';
+export class PinlyxApi implements ICredentialType {
+	name = 'pinlyxApi';
 
 	displayName = 'Pinlyx API';
 
 	icon: Icon = {
-		light: 'file:../nodes/CrmSolid/crmsolid.svg',
-		dark: 'file:../nodes/CrmSolid/crmsolid.dark.svg',
+		light: 'file:../nodes/Pinlyx/pinlyx.svg',
+		dark: 'file:../nodes/Pinlyx/pinlyx.dark.svg',
 	};
 
 	documentationUrl = 'https://docs.pinlyx.com';
@@ -33,7 +33,7 @@ export class CrmSolidApi implements ICredentialType {
 			displayName: 'Base URL',
 			name: 'baseUrl',
 			type: 'string',
-			default: 'https://api.crmsolid.com',
+			default: 'https://api.pinlyx.com',
 			description: 'Change this only for a staging or self-hosted deployment',
 		},
 	];

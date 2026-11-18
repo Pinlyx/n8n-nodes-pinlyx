@@ -17,15 +17,15 @@ import { NodeApiError, NodeConnectionTypes, NodeOperationError } from 'n8n-workf
  * client, both because the credential injects the Authorization header there and
  * because a verified community node is not allowed runtime dependencies.
  */
-async function crmSolidRequest(
+async function pinlyxRequest(
 	this: IExecuteFunctions,
 	method: IHttpRequestMethods,
 	resource: string,
 	body: IDataObject = {},
 	qs: IDataObject = {},
 ): Promise<any> {
-	const credentials = await this.getCredentials('crmSolidApi');
-	const baseUrl = ((credentials.baseUrl as string) || 'https://api.crmsolid.com').replace(/\/+$/, '');
+	const credentials = await this.getCredentials('pinlyxApi');
+	const baseUrl = ((credentials.baseUrl as string) || 'https://api.pinlyx.com').replace(/\/+$/, '');
 
 	const options: IHttpRequestOptions = {
 		method,
@@ -35,7 +35,7 @@ async function crmSolidRequest(
 	};
 	if (Object.keys(body).length) options.body = body;
 
-	return this.helpers.httpRequestWithAuthentication.call(this, 'crmSolidApi', options);
+	return this.helpers.httpRequestWithAuthentication.call(this, 'pinlyxApi', options);
 }
 
 /**
@@ -71,7 +71,7 @@ async function paginate(
 		const qs: IDataObject = { ...filters, limit: Math.min(Math.max(remaining, 1), 100) };
 		if (cursor !== undefined) qs[cursorParam] = cursor;
 
-		const page = await crmSolidRequest.call(this, 'GET', path, {}, qs);
+		const page = await pinlyxRequest.call(this, 'GET', path, {}, qs);
 		const rows: IDataObject[] =
 			(page?.items as IDataObject[]) ??
 			(page?.data as IDataObject[]) ??
@@ -91,11 +91,11 @@ async function paginate(
 	return returnAll ? collected : collected.slice(0, limit);
 }
 
-export class CrmSolid implements INodeType {
+export class Pinlyx implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Pinlyx',
-		name: 'crmSolid',
-		icon: { light: 'file:crmsolid.svg', dark: 'file:crmsolid.dark.svg' },
+		name: 'pinlyx',
+		icon: { light: 'file:pinlyx.svg', dark: 'file:pinlyx.dark.svg' },
 		usableAsTool: true,
 		group: ['transform'],
 		version: 1,
@@ -104,7 +104,7 @@ export class CrmSolid implements INodeType {
 		defaults: { name: 'Pinlyx' },
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],
-		credentials: [{ name: 'crmSolidApi', required: true }],
+		credentials: [{ name: 'pinlyxApi', required: true }],
 		properties: [
 			{
 				displayName: 'Resource',
@@ -365,17 +365,17 @@ export class CrmSolid implements INodeType {
 								{ itemIndex: i },
 							);
 						}
-						responseData = await crmSolidRequest.call(this, 'POST', '/v1/contacts', body);
+						responseData = await pinlyxRequest.call(this, 'POST', '/v1/contacts', body);
 					} else if (operation === 'get') {
 						const id = this.getNodeParameter('contactId', i) as number;
-						responseData = await crmSolidRequest.call(this, 'GET', `/v1/contacts/${id}`);
+						responseData = await pinlyxRequest.call(this, 'GET', `/v1/contacts/${id}`);
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('contactId', i) as number;
 						const body = this.getNodeParameter('additionalFields', i) as IDataObject;
-						responseData = await crmSolidRequest.call(this, 'PATCH', `/v1/contacts/${id}`, body);
+						responseData = await pinlyxRequest.call(this, 'PATCH', `/v1/contacts/${id}`, body);
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('contactId', i) as number;
-						await crmSolidRequest.call(this, 'DELETE', `/v1/contacts/${id}`);
+						await pinlyxRequest.call(this, 'DELETE', `/v1/contacts/${id}`);
 						responseData = { success: true, id };
 					} else if (operation === 'getAll') {
 						responseData = await paginate.call(
@@ -391,7 +391,7 @@ export class CrmSolid implements INodeType {
 							title: this.getNodeParameter('title', i) as string,
 							...(this.getNodeParameter('dealFields', i) as IDataObject),
 						};
-						responseData = await crmSolidRequest.call(this, 'POST', '/v1/deals', body);
+						responseData = await pinlyxRequest.call(this, 'POST', '/v1/deals', body);
 					} else if (operation === 'getAll') {
 						responseData = await paginate.call(
 							this,

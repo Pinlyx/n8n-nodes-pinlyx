@@ -1,4 +1,4 @@
-# n8n-nodes-crmsolid
+# n8n-nodes-pinlyx
 
 An [n8n](https://n8n.io) community node for [Pinlyx](https://pinlyx.com). It puts your
 contacts, deals and conversations in a workflow, so a form submission becomes a contact, a
@@ -15,13 +15,13 @@ platform.
 In n8n, go to **Settings → Community Nodes**, select **Install**, and enter:
 
 ```
-n8n-nodes-crmsolid
+n8n-nodes-pinlyx
 ```
 
 For a self-hosted instance you can also install it directly:
 
 ```bash
-npm install n8n-nodes-crmsolid
+npm install n8n-nodes-pinlyx
 ```
 
 Follow the [community node installation guide](https://docs.n8n.io/integrations/community-nodes/installation/)
@@ -77,7 +77,7 @@ dependencies: every request goes through n8n's own HTTP helper.
 
 - [Pinlyx](https://pinlyx.com)
 - [API documentation](https://docs.pinlyx.com)
-- [`@crmsolid/mcp-server`](https://github.com/Pinlyx/pinlyx-mcp): the MCP server,
+- [`pinlyx-mcp`](https://github.com/Pinlyx/pinlyx-mcp): the MCP server,
   for the same CRM from Claude, Cursor or ChatGPT rather than from a workflow
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
 
